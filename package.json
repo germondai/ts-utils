@@ -1,11 +1,39 @@
 {
   "name": "@germondai/ts-utils",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "description": "Germond's TypeScript Utilities",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/germondai/ts-utils.git"
+  },
+  "author": "germondai",
+  "license": "MIT",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/module.d.ts",
+      "import": "./dist/module.js",
+      "require": "./dist/module.js"
+    }
+  },
+  "main": "./dist/module.js",
+  "types": "./dist/module.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "bun build --target=node ./src/module.ts --outfile=dist/module.js && bun run build:declaration",
+    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
+    "release": "bun fmt && bun prepack && changelogen --release && bun publish && git push --follow-tags",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write --list-different .",
+    "fmt": "bun prettier:fix"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "prettier": "^3.5.0"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.7.3"
   }
 }
