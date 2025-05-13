@@ -194,3 +194,25 @@ export const escapeHTML = (str: string): string => {
 
   return str.replace(/[&<>"']/g, (char) => escapeMap[char] || char)
 }
+
+/**
+ * Unescapes HTML entities in a string.
+ * Converts HTML entities like `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#039;` back to their original characters.
+ *
+ * @param str - The input string to unescape.
+ * @returns The unescaped string.
+ */
+export const unescapeHTML = (str: string): string => {
+  const unescapeMap: { [key: string]: string } = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#039;': "'",
+  }
+
+  return str.replace(
+    /&[a-zA-Z0-9#]+;/g,
+    (entity) => unescapeMap[entity] || entity,
+  )
+}

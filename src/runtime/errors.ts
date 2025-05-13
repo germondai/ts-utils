@@ -10,17 +10,22 @@
  * @param errorsToCatch - Optional array of error constructors to catch.
  * @returns A promise resolving to an object with either the data or an error.
  */
-export const catchError = <T, E extends new (message?: string) => Error>(
+export const catchError = async <T, E extends new (message?: string) => Error>(
   promise: () => Promise<T>,
   errorsToCatch?: E[],
-): Promise<{ data?: T; ok: boolean; error?: InstanceType<E> }> =>
-  promise()
-    .then((data) => ({ data, ok: true }))
-    .catch((error) => {
-      if (
-        errorsToCatch === undefined ||
-        errorsToCatch.some((e) => error instanceof e)
-      )
-        return { error, ok: false }
-      throw error
-    })
+): Promise<
+  | { data: T; ok: true; error?: never }
+  | { data?: never; ok: false; error: InstanceType<E> }
+> => {
+  try {
+    const data = await promise()
+    return { data, ok: true }
+  } catch (error: any) {
+    if (
+      errorsToCatch === undefined ||
+      errorsToCatch.some((e) => error instanceof e)
+    )
+      return { error, ok: false }
+    throw error
+  }
+}

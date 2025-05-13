@@ -16,3 +16,49 @@ export const formatBytes = (bytes: number, decimals: number = 2): string => {
   const size = parseFloat((bytes / Math.pow(k, i)).toFixed(dm))
   return `${size} ${sizes[i]}`
 }
+
+/**
+ * Converts a human-readable size string into its equivalent size in bytes.
+ *
+ * @param size - The size string to convert. It should be in the format of a number
+ * followed by a unit (e.g., "10 KB", "5.5 MB", "1 GB"). Supported units are:
+ * - B (bytes)
+ * - KB (kilobytes)
+ * - MB (megabytes)
+ * - GB (gigabytes)
+ * - TB (terabytes)
+ *
+ * @returns The size in bytes as a number, or `undefined` if the input format is invalid
+ * or the value is negative.
+ *
+ * @example
+ * ```typescript
+ * toBytes("10 KB") // Returns 10240
+ * toBytes("5.5 MB") // Returns 5767168
+ * toBytes("1 GB") // Returns 1073741824
+ * toBytes("invalid") // Returns undefined
+ * ```
+ */
+export const toBytes = (size: string): number | undefined => {
+  const match = size.trim().match(/^(\d+\.?\d*)\s*(B|KB|MB|GB|TB)$/i)
+  if (!match) return // Invalid size format
+
+  const value = Number(match[1])
+  const unit = match[2]?.toUpperCase() as 'B' | 'KB' | 'MB' | 'GB' | 'TB'
+  if (isNaN(value) || value < 0) return // Invalid size value
+
+  switch (unit) {
+    case 'B':
+      return value
+    case 'KB':
+      return value * 1024
+    case 'MB':
+      return value * 1024 * 1024
+    case 'GB':
+      return value * 1024 * 1024 * 1024
+    case 'TB':
+      return value * 1024 * 1024 * 1024 * 1024
+    default:
+      return // Unsupported unit
+  }
+}

@@ -175,25 +175,6 @@ export const isISODate = (value: string): boolean =>
   /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(value)
 
 /**
- * Checks if a given string is a valid JSON string.
- *
- * @param value - The string to validate.
- * @returns True if the string is valid JSON, false otherwise.
- *
- * @example
- * isJson('{"name": "John"}'); // true
- * isJson('{invalid}'); // false
- */
-export const isJson = (value: string): boolean => {
-  try {
-    JSON.parse(value)
-    return true
-  } catch {
-    return false
-  }
-}
-
-/**
  * Checks if a given string is a valid Base64-encoded string.
  *
  * @param value - The string to validate.

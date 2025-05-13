@@ -48,3 +48,26 @@ export const isEmpty = (value: unknown): boolean => {
   if (isObject(value)) return Object.keys(value).length === 0
   return false
 }
+
+/**
+ * Determines whether a value is valid JSON.
+ *
+ * This function checks if a value can be parsed as JSON.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is valid JSON, false otherwise.
+ *
+ * @example
+ * isJson('{"name": "John"}'); // true
+ * isJson('{invalid}'); // false
+ *
+ */
+export const isJSON = (value: string): boolean => {
+  if (typeof value !== 'string') return false
+  try {
+    JSON.parse(value)
+    return true
+  } catch {
+    return false
+  }
+}

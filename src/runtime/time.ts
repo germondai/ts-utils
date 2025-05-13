@@ -38,3 +38,48 @@ export const formatDuration = (ms: number): string => {
   if (min > 0) return `${min}m ${sec % 60}s`
   return `${sec}s`
 }
+
+/**
+ * Converts a time string into seconds.
+ *
+ * Supports various formats:
+ * - Direct seconds (e.g., '2947')
+ * - MM:SS or HH:MM:SS
+ * - 'Xh Ym Zs' format (e.g., '2h 15m 30s')
+ *
+ * @param time - The time string to convert.
+ * @returns The total number of seconds, or undefined if the format is invalid.
+ */
+export const toSeconds = (time: string): number | undefined => {
+  time = time?.trim()
+  if (!time) return // Time string cannot be empty
+
+  // Handle direct seconds (e.g., '2947')
+  if (/^\d+$/.test(time)) {
+    const seconds = Number(time)
+    if (isNaN(seconds)) return // Invalid seconds
+    return seconds
+  }
+
+  // Handle MM:SS or HH:MM:SS
+  if (time.includes(':')) {
+    const parts = time.split(':').map(Number)
+    if (parts.some(isNaN)) return // Invalid time format
+    if (parts.length === 2) return (parts[0] || 0) * 60 + (parts[1] || 0)
+    else if (parts.length === 3)
+      return (parts[0] || 0) * 3600 + (parts[1] || 0) * 60 + (parts[2] || 0)
+    return // Unsupported time format
+  }
+
+  // Handle 'Xh Ym Zs' format
+  const match = time.match(/(?:(\d+)h)?\s*(?:(\d+)m)?\s*(?:(\d+)s)?/i)
+  if (!match || !match.some((v, i) => i > 0 && v !== undefined)) return // Invalid time format
+
+  const hours = Number(match[1] || '0')
+  const minutes = Number(match[2] || '0')
+  const seconds = Number(match[3] || '0')
+
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return // Invalid time values
+
+  return hours * 3600 + minutes * 60 + seconds
+}
