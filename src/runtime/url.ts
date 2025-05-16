@@ -71,7 +71,7 @@ export const removeQueryParam = (urlString: string, key: string): string => {
 export const buildUrl = (
   baseUrl: string,
   path?: string,
-  queryParams?: Record<string, string | number | boolean>,
+  queryParams?: Record<string, string | number | boolean | null | undefined>,
 ): string => {
   const url = new URL(baseUrl)
 
@@ -80,11 +80,11 @@ export const buildUrl = (
     url.pathname = `${url.pathname.replace(/\/$/, '')}${normalizedPath}`
   }
 
-  if (queryParams) {
+  if (queryParams)
     Object.entries(queryParams).forEach(([key, value]) => {
-      url.searchParams.set(key, String(value))
+      if (value === undefined) return
+      url.searchParams.set(key, value === null ? '' : String(value))
     })
-  }
 
   return url.toString()
 }
