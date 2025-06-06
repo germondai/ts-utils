@@ -23,7 +23,7 @@ export const clone = <T>(data: T): T => JSON.parse(JSON.stringify(data))
  * - For objects, the function checks if they have the same keys and recursively compares their corresponding values.
  * - The function does not handle circular references and may result in a stack overflow for deeply nested structures.
  */
-const isEqual = <T>(a: T, b: T): boolean => {
+export const isEqual = <T>(a: T, b: T): boolean => {
   if (a === b) return true
   if (a == null || b == null) return false
   if (typeof a !== typeof b) return false
