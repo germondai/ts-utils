@@ -30,21 +30,33 @@ export const clone = <T>(data: T): T => {
  * - For objects, the function checks if they have the same keys and recursively compares their corresponding values.
  * - The function does not handle circular references and may result in a stack overflow for deeply nested structures.
  */
-export const isEqual = <T>(a: T, b: T): boolean => {
+export const isEqual = <T>(
+  a: T,
+  b: T,
+  seen: WeakSet<object> = new WeakSet(),
+): boolean => {
   if (a === b) return true
   if (a == null || b == null) return false
   if (typeof a !== typeof b) return false
   if (typeof a === 'object') {
+    if (seen.has(a as object) || seen.has(b as object)) return a === b
+    seen.add(a as object)
+    seen.add(b as object)
+
     if (Array.isArray(a) && Array.isArray(b)) {
       if (a.length !== b.length) return false
-      for (let i = 0; i < a.length; i++) if (!isEqual(a[i], b[i])) return false
+      for (let i = 0; i < a.length; i++)
+        if (!isEqual(a[i], b[i], seen)) return false
       return true
     } else {
       const keysA = Object.keys(a)
       const keysB = Object.keys(b)
       if (keysA.length !== keysB.length) return false
       for (const key of keysA)
-        if (!keysB.includes(key) || !isEqual((a as any)[key], (b as any)[key]))
+        if (
+          !keysB.includes(key) ||
+          !isEqual((a as any)[key], (b as any)[key], seen)
+        )
           return false
       return true
     }

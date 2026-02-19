@@ -1,14 +1,23 @@
 /**
+ * Splits an input string into words, handling camelCase, PascalCase,
+ * snake_case, kebab-case, spaces, and mixed formats.
+ */
+export const splitWords = (input: string): string[] =>
+  input
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .toLowerCase()
+    .split(/[\s_\-]+/)
+    .filter(Boolean)
+
+/**
  * Converts a string to camelCase.
- * Example: "hello world" → "helloWorld"
+ * Example: "hello world" → "helloWorld", "myVariableName" → "myVariableName"
  * @param input The input string.
  * @returns The camelCase version of the input.
  */
 export const toCamelCase = (input: string): string => {
-  const words = input
-    .toLowerCase()
-    .split(/[\s_-]+/)
-    .filter(Boolean)
+  const words = splitWords(input)
 
   return words
     .map((word, index) =>
@@ -24,38 +33,27 @@ export const toCamelCase = (input: string): string => {
  * @returns The PascalCase version of the input.
  */
 export const toPascalCase = (input: string): string =>
-  input
-    .toLowerCase()
-    .split(/[\s_-]+/)
-    .filter(Boolean)
+  splitWords(input)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join('')
 
 /**
  * Converts a string to snake_case.
- * Example: "hello world" → "hello_world"
+ * Example: "hello world" → "hello_world", "myVariableName" → "my_variable_name"
  * @param input The input string.
  * @returns The snake_case version of the input.
  */
 export const toSnakeCase = (input: string): string =>
-  input
-    .toLowerCase()
-    .split(/[\s-]+/)
-    .filter(Boolean)
-    .join('_')
+  splitWords(input).join('_')
 
 /**
  * Converts a string to kebab-case.
- * Example: "hello world" → "hello-world"
+ * Example: "hello world" → "hello-world", "myVariableName" → "my-variable-name"
  * @param input The input string.
  * @returns The kebab-case version of the input.
  */
 export const toKebabCase = (input: string): string =>
-  input
-    .toLowerCase()
-    .split(/[\s_]+/)
-    .filter(Boolean)
-    .join('-')
+  splitWords(input).join('-')
 
 /**
  * Converts a string to title case.
