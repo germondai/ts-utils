@@ -6,7 +6,14 @@
  * @param data - The data to clone.
  * @returns A deep copy of the data.
  */
-export const clone = <T>(data: T): T => JSON.parse(JSON.stringify(data))
+export const clone = <T>(data: T): T => {
+  if (data === null || typeof data !== 'object') return data
+  try {
+    return structuredClone(data)
+  } catch {
+    return JSON.parse(JSON.stringify(data))
+  }
+}
 
 /**
  * Compares two values of the same type to determine if they are deeply equal.
