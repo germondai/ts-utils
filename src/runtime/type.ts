@@ -71,3 +71,66 @@ export const isJSON = (value: string): boolean => {
     return false
   }
 }
+
+/**
+ * Checks if a value is a function.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a function.
+ */
+export const isFunction = (value: unknown): value is Function =>
+  typeof value === 'function'
+
+/**
+ * Checks if a value is a valid Date instance.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a valid Date.
+ */
+export const isDate = (value: unknown): value is Date =>
+  value instanceof Date && !isNaN(value.getTime())
+
+/**
+ * Checks if a value is a number (and not NaN).
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a finite number.
+ */
+export const isNumber = (value: unknown): value is number =>
+  typeof value === 'number' && !isNaN(value)
+
+/**
+ * Checks if a value is a string.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a string.
+ */
+export const isString = (value: unknown): value is string =>
+  typeof value === 'string'
+
+/**
+ * Checks if a value is a boolean.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a boolean.
+ */
+export const isBoolean = (value: unknown): value is boolean =>
+  typeof value === 'boolean'
+
+/**
+ * Checks if a value is null or undefined.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is null or undefined.
+ */
+export const isNil = (value: unknown): value is null | undefined =>
+  value === null || value === undefined
+
+/**
+ * Checks if a value is a RegExp instance.
+ *
+ * @param value - The value to check.
+ * @returns True if the value is a RegExp.
+ */
+export const isRegExp = (value: unknown): value is RegExp =>
+  value instanceof RegExp

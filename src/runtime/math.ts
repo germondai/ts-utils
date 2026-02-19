@@ -47,3 +47,86 @@ export const clamp = (num: number, min: number, max: number): number =>
  */
 export const formatNumber = (num: number): string =>
   num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+/**
+ * Sums an array of numbers.
+ *
+ * @param numbers - The numbers to sum.
+ * @returns The sum, or 0 for an empty array.
+ *
+ * @example
+ * sum([1, 2, 3]) // 6
+ */
+export const sum = (numbers: number[]): number =>
+  numbers.reduce((acc, n) => acc + n, 0)
+
+/**
+ * Calculates the average of an array of numbers.
+ *
+ * @param numbers - The numbers to average.
+ * @returns The average, or 0 for an empty array.
+ *
+ * @example
+ * average([1, 2, 3, 4]) // 2.5
+ */
+export const average = (numbers: number[]): number =>
+  numbers.length === 0 ? 0 : sum(numbers) / numbers.length
+
+/**
+ * Calculates the median of an array of numbers.
+ *
+ * @param numbers - The numbers to find the median of.
+ * @returns The median, or 0 for an empty array.
+ *
+ * @example
+ * median([1, 2, 3]) // 2
+ * median([1, 2, 3, 4]) // 2.5
+ */
+export const median = (numbers: number[]): number => {
+  if (numbers.length === 0) return 0
+  const sorted = [...numbers].sort((a, b) => a - b)
+  const mid = Math.floor(sorted.length / 2)
+  return sorted.length % 2 !== 0
+    ? sorted[mid]
+    : (sorted[mid - 1] + sorted[mid]) / 2
+}
+
+/**
+ * Returns the minimum value in an array of numbers.
+ *
+ * @param numbers - The numbers.
+ * @returns The minimum value, or Infinity for an empty array.
+ *
+ * @example
+ * min([3, 1, 4, 1, 5]) // 1
+ */
+export const min = (numbers: number[]): number =>
+  numbers.length === 0 ? Infinity : Math.min(...numbers)
+
+/**
+ * Returns the maximum value in an array of numbers.
+ *
+ * @param numbers - The numbers.
+ * @returns The maximum value, or -Infinity for an empty array.
+ *
+ * @example
+ * max([3, 1, 4, 1, 5]) // 5
+ */
+export const max = (numbers: number[]): number =>
+  numbers.length === 0 ? -Infinity : Math.max(...numbers)
+
+/**
+ * Rounds a number to the specified number of decimal places.
+ *
+ * @param value - The number to round.
+ * @param decimals - The number of decimal places (default: 0).
+ * @returns The rounded number.
+ *
+ * @example
+ * round(1.2345, 2) // 1.23
+ * round(1.5) // 2
+ */
+export const round = (value: number, decimals: number = 0): number => {
+  const factor = Math.pow(10, decimals)
+  return Math.round(value * factor) / factor
+}
