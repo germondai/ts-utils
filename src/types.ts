@@ -24,6 +24,34 @@ export type Nullable<T> = T | null
 /** Makes a type nullable or undefined */
 export type Maybe<T> = T | null | undefined
 
+/** Makes a type promise or not */
+export type MaybePromise<T> = T | Promise<T>
+
+/** Makes all properties of a type nullable */
+export type NullableProperties<T> = {
+  [K in keyof T]: T[K] | null
+}
+
+/** Makes all properties of a type optional */
+export type OptionalProperties<T> = {
+  [K in keyof T]?: T[K]
+}
+
+/** Makes all properties of a type required */
+export type RequiredProperties<T> = {
+  [K in keyof T]-?: T[K]
+}
+
+/** Extracts the keys of a type that are optional */
+export type OptionalKeys<T> = {
+  [K in keyof T]-?: {} extends Pick<T, K> ? K : never
+}[keyof T]
+
+/** Extracts the keys of a type that are required */
+export type RequiredKeys<T> = {
+  [K in keyof T]-?: {} extends Pick<T, K> ? never : K
+}[keyof T]
+
 /** Recursively removes null and undefined from all properties */
 export type NonNullableDeep<T> = {
   [K in keyof T]: T[K] extends object
