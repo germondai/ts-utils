@@ -172,7 +172,12 @@ export const slugify = (title: string, length: number = 64): string =>
  * @returns The string without HTML tags.
  */
 export const stripTags = (html: string): string =>
-  html.replace(/<\/?[^>]+(>|$)/g, '')
+  html
+    .replace(/<\s*br\s*\/?\s*>/gi, ' ')
+    .replace(/<\/?p\b[^>]*>/gi, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 
 /**
  * Escapes special characters in a string to make it safe for inclusion in HTML.
@@ -207,10 +212,31 @@ export const unescapeHTML = (str: string): string => {
     '&gt;': '>',
     '&quot;': '"',
     '&#039;': "'",
+    '&nbsp;': '\u00A0',
+    '&copy;': '©',
+    '&reg;': '®',
+    '&euro;': '€',
+    '&hellip;': '…',
+    '&ndash;': '–',
+    '&mdash;': '—',
   }
 
   return str.replace(
-    /&[a-zA-Z0-9#]+;/g,
-    (entity) => unescapeMap[entity] || entity,
+    /&(?:#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z][a-zA-Z0-9]+);/g,
+    (entity) => {
+      if (entity.startsWith('&#x')) {
+        const codePoint = Number.parseInt(entity.slice(3, -1), 16)
+
+        return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
+      }
+
+      if (entity.startsWith('&#')) {
+        const codePoint = Number.parseInt(entity.slice(2, -1), 10)
+
+        return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
+      }
+
+      return unescapeMap[entity] || entity
+    },
   )
 }

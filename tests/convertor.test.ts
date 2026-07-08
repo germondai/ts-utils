@@ -305,11 +305,21 @@ describe('stripTags', () => {
   })
 
   test('removes self-closing tags', () => {
-    expect(stripTags('Hello<br/>World')).toBe('HelloWorld')
+    expect(stripTags('Hello<br/>World')).toBe('Hello World')
+  })
+
+  test('collapses break-like tags into a single space', () => {
+    expect(stripTags('Hello<br/><p><br/></p><br/><br/>World')).toBe(
+      'Hello World',
+    )
   })
 
   test('handles string without tags', () => {
     expect(stripTags('Hello World')).toBe('Hello World')
+  })
+
+  test('collapses empty paragraphs into a space', () => {
+    expect(stripTags('Hello<p></p>World')).toBe('Hello World')
   })
 
   test('removes tags with attributes', () => {
@@ -348,6 +358,10 @@ describe('escapeHTML', () => {
 describe('unescapeHTML', () => {
   test('unescapes ampersand', () => {
     expect(unescapeHTML('a &amp; b')).toBe('a & b')
+  })
+
+  test('unescapes nbsp and numeric entities', () => {
+    expect(unescapeHTML('a&nbsp;b &#160; &#xA0;')).toBe('a\u00A0b \u00A0 \u00A0')
   })
 
   test('unescapes angle brackets', () => {
