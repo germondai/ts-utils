@@ -7,7 +7,7 @@
  * @example
  * reverse("hello") // "olleh"
  */
-export const reverse = (str: string): string => [...str].reverse().join('')
+export const reverse = (str: string): string => [...str].reverse().join("")
 
 /**
  * Counts the number of occurrences of a substring in a string.
@@ -20,7 +20,7 @@ export const reverse = (str: string): string => [...str].reverse().join('')
  * countOccurrences("hello world hello", "hello") // 2
  */
 export const countOccurrences = (str: string, search: string): number => {
-  if (search === '') return 0
+  if (search === "") return 0
   let count = 0
   let pos = 0
   while ((pos = str.indexOf(search, pos)) !== -1) {
@@ -46,15 +46,15 @@ export const countOccurrences = (str: string, search: string): number => {
 export const pad = (
   str: string,
   length: number,
-  char: string = ' ',
-  direction: 'left' | 'right' | 'both' = 'left',
+  char: string = " ",
+  direction: "left" | "right" | "both" = "left",
 ): string => {
   if (str.length >= length) return str
-  const padChar = char[0] || ' '
+  const padChar = char[0] || " "
   switch (direction) {
-    case 'right':
+    case "right":
       return str.padEnd(length, padChar)
-    case 'both': {
+    case "both": {
       const total = length - str.length
       const left = Math.floor(total / 2)
       const right = total - left
@@ -77,11 +77,7 @@ export const pad = (
  * mask("1234567890") // "******7890"
  * mask("secret", 2, "#") // "####et"
  */
-export const mask = (
-  str: string,
-  visibleCount: number = 4,
-  maskChar: string = '*',
-): string => {
+export const mask = (str: string, visibleCount: number = 4, maskChar: string = "*"): string => {
   if (str.length <= visibleCount) return str
   const masked = maskChar[0].repeat(str.length - visibleCount)
   return masked + str.slice(-visibleCount)
@@ -102,7 +98,7 @@ export const initials = (name: string): string =>
     .split(/\s+/)
     .filter(Boolean)
     .map((word) => word[0])
-    .join('')
+    .join("")
     .toUpperCase()
 
 /**
@@ -116,7 +112,7 @@ export const initials = (name: string): string =>
  */
 export const wordCount = (str: string): number => {
   const words = str.trim().split(/\s+/).filter(Boolean)
-  return str.trim() === '' ? 0 : words.length
+  return str.trim() === "" ? 0 : words.length
 }
 
 /**
@@ -130,4 +126,4 @@ export const wordCount = (str: string): number => {
  * isBlank("  ") // true
  * isBlank("hello") // false
  */
-export const isBlank = (str: string): boolean => str.trim() === ''
+export const isBlank = (str: string): boolean => str.trim() === ""

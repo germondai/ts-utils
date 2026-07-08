@@ -54,9 +54,7 @@ export type RequiredKeys<T> = {
 
 /** Recursively removes null and undefined from all properties */
 export type NonNullableDeep<T> = {
-  [K in keyof T]: T[K] extends object
-    ? NonNullableDeep<NonNullable<T[K]>>
-    : NonNullable<T[K]>
+  [K in keyof T]: T[K] extends object ? NonNullableDeep<NonNullable<T[K]>> : NonNullable<T[K]>
 }
 
 /** Omit that enforces K extends keyof T */
@@ -74,29 +72,18 @@ export type Entries<T> = {
 }[keyof T][]
 
 /** Convert a union type to an intersection type */
-export type UnionToIntersection<U> = (
-  U extends any ? (x: U) => void : never
-) extends (x: infer I) => void
-  ? I
-  : never
+export type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (x: infer I) => void ? I : never
 
 /** Require at least one of the specified keys */
-export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Omit<
-  T,
-  Keys
-> &
+export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
   {
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>
   }[Keys]
 
 /** Require exactly one of the specified keys */
-export type RequireExactlyOne<T, Keys extends keyof T = keyof T> = Omit<
-  T,
-  Keys
-> &
+export type RequireExactlyOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
   {
-    [K in Keys]-?: Required<Pick<T, K>> &
-      Partial<Record<Exclude<Keys, K>, undefined>>
+    [K in Keys]-?: Required<Pick<T, K>> & Partial<Record<Exclude<Keys, K>, undefined>>
   }[Keys]
 
 /** Remove readonly from all properties */

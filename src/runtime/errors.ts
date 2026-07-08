@@ -13,19 +13,12 @@
 export const catchError = async <T, E extends new (message?: string) => Error>(
   promise: () => Promise<T>,
   errorsToCatch?: E[],
-): Promise<
-  | { data: T; ok: true; error?: never }
-  | { data?: never; ok: false; error: InstanceType<E> }
-> => {
+): Promise<{ data: T; ok: true; error?: never } | { data?: never; ok: false; error: InstanceType<E> }> => {
   try {
     const data = await promise()
     return { data, ok: true }
   } catch (error: any) {
-    if (
-      errorsToCatch === undefined ||
-      errorsToCatch.some((e) => error instanceof e)
-    )
-      return { error, ok: false }
+    if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) return { error, ok: false }
     throw error
   }
 }

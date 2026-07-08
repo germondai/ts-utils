@@ -16,10 +16,7 @@
 export const hasDuplicates = <T>(
   array: T[],
   keyExtractor?: (value: T, index: number, array: T[]) => string | number,
-): boolean =>
-  new Set(
-    array.map((value, index) => keyExtractor?.(value, index, array) ?? value),
-  ).size < array.length
+): boolean => new Set(array.map((value, index) => keyExtractor?.(value, index, array) ?? value)).size < array.length
 
 /**
  * Removes duplicates from an array based on a key function.
@@ -61,12 +58,7 @@ export const uniqueArray = <T>(
   array: T[],
   keyExtractor?: (value: T, index: number, array: T[]) => string | number,
 ): T[] => [
-  ...new Map(
-    array.map((value, index, array) => [
-      keyExtractor?.(value, index, array) ?? value,
-      value,
-    ]),
-  ).values(),
+  ...new Map(array.map((value, index, array) => [keyExtractor?.(value, index, array) ?? value, value])).values(),
 ]
 
 /**
@@ -117,12 +109,8 @@ export const shuffle = <T>(array: T[]): T[] => {
  * groupBy([{ type: 'a', v: 1 }, { type: 'b', v: 2 }, { type: 'a', v: 3 }], 'type')
  * // { a: [{ type: 'a', v: 1 }, { type: 'a', v: 3 }], b: [{ type: 'b', v: 2 }] }
  */
-export const groupBy = <T>(
-  array: T[],
-  key: keyof T | ((item: T) => string),
-): Record<string, T[]> => {
-  const getKey =
-    typeof key === 'function' ? key : (item: T) => String(item[key])
+export const groupBy = <T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]> => {
+  const getKey = typeof key === "function" ? key : (item: T) => String(item[key])
   const result: Record<string, T[]> = {}
   for (const item of array) {
     const k = getKey(item)
@@ -156,8 +144,7 @@ export const intersection = <T>(...arrays: T[][]): T[] => {
  * @example
  * difference([1, 2, 3, 4], [2, 4]) // [1, 3]
  */
-export const difference = <T>(a: T[], b: T[]): T[] =>
-  a.filter((item) => !b.includes(item))
+export const difference = <T>(a: T[], b: T[]): T[] => a.filter((item) => !b.includes(item))
 
 /**
  * Generates an array of numbers in a given range.
@@ -171,11 +158,7 @@ export const difference = <T>(a: T[], b: T[]): T[] =>
  * range(0, 5) // [0, 1, 2, 3, 4]
  * range(0, 10, 3) // [0, 3, 6, 9]
  */
-export const range = (
-  start: number,
-  end: number,
-  step: number = 1,
-): number[] => {
+export const range = (start: number, end: number, step: number = 1): number[] => {
   if (step <= 0) return []
   const result: number[] = []
   for (let i = start; i < end; i += step) {
@@ -198,15 +181,14 @@ export const range = (
 export const sortBy = <T>(
   array: T[],
   key: keyof T | ((item: T) => number | string),
-  order: 'asc' | 'desc' = 'asc',
+  order: "asc" | "desc" = "asc",
 ): T[] => {
-  const getVal =
-    typeof key === 'function' ? key : (item: T) => item[key] as number | string
+  const getVal = typeof key === "function" ? key : (item: T) => item[key] as number | string
   return [...array].sort((a, b) => {
     const va = getVal(a)
     const vb = getVal(b)
     const cmp = va < vb ? -1 : va > vb ? 1 : 0
-    return order === 'desc' ? -cmp : cmp
+    return order === "desc" ? -cmp : cmp
   })
 }
 
@@ -219,9 +201,7 @@ export const sortBy = <T>(
  * @example
  * compact([0, 1, false, 2, '', 3, null, undefined]) // [1, 2, 3]
  */
-export const compact = <T>(
-  array: (T | null | undefined | false | 0 | '')[],
-): T[] => array.filter(Boolean) as T[]
+export const compact = <T>(array: (T | null | undefined | false | 0 | "")[]): T[] => array.filter(Boolean) as T[]
 
 /**
  * Returns the last element of an array.
@@ -245,6 +225,4 @@ export const last = <T>(array: T[]): T | undefined => array[array.length - 1]
  * sample([1, 2, 3]) // 2 (random)
  */
 export const sample = <T>(array: T[]): T | undefined =>
-  array.length === 0
-    ? undefined
-    : array[Math.floor(Math.random() * array.length)]
+  array.length === 0 ? undefined : array[Math.floor(Math.random() * array.length)]

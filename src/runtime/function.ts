@@ -11,10 +11,7 @@
  * debouncedSave() // Only executes after 300ms of inactivity
  * debouncedSave.cancel() // Cancel pending execution
  */
-export const debounce = <T extends (...args: any[]) => any>(
-  fn: T,
-  ms: number,
-): T & { cancel(): void } => {
+export const debounce = <T extends (...args: any[]) => any>(fn: T, ms: number): T & { cancel(): void } => {
   let timer: ReturnType<typeof setTimeout> | undefined
 
   const debounced = ((...args: any[]) => {
@@ -43,10 +40,7 @@ export const debounce = <T extends (...args: any[]) => any>(
  * window.addEventListener('scroll', throttledScroll)
  * throttledScroll.cancel() // Cancel pending execution
  */
-export const throttle = <T extends (...args: any[]) => any>(
-  fn: T,
-  ms: number,
-): T & { cancel(): void } => {
+export const throttle = <T extends (...args: any[]) => any>(fn: T, ms: number): T & { cancel(): void } => {
   let timer: ReturnType<typeof setTimeout> | undefined
   let lastRun = 0
 

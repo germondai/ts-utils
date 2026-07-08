@@ -8,17 +8,15 @@
  * hexToRgb("#ff5733") // { r: 255, g: 87, b: 51 }
  * hexToRgb("#f53") // { r: 255, g: 85, b: 51 }
  */
-export const hexToRgb = (
-  hex: string,
-): { r: number; g: number; b: number } | null => {
-  const cleaned = hex.replace(/^#/, '')
+export const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+  const cleaned = hex.replace(/^#/, "")
   let fullHex: string
 
   if (cleaned.length === 3) {
     fullHex = cleaned
-      .split('')
+      .split("")
       .map((c) => c + c)
-      .join('')
+      .join("")
   } else if (cleaned.length === 6) {
     fullHex = cleaned
   } else {
@@ -47,11 +45,11 @@ export const hexToRgb = (
  * rgbToHex(255, 87, 51) // "#ff5733"
  */
 export const rgbToHex = (r: number, g: number, b: number): string =>
-  '#' +
+  "#" +
   [r, g, b]
     .map((v) => Math.max(0, Math.min(255, Math.round(v))))
-    .map((v) => v.toString(16).padStart(2, '0'))
-    .join('')
+    .map((v) => v.toString(16).padStart(2, "0"))
+    .join("")
 
 /**
  * Lightens a hex color by a given percentage.
@@ -66,11 +64,7 @@ export const rgbToHex = (r: number, g: number, b: number): string =>
 export const lighten = (hex: string, amount: number): string => {
   const rgb = hexToRgb(hex)
   if (!rgb) return hex
-  return rgbToHex(
-    rgb.r + (255 - rgb.r) * amount,
-    rgb.g + (255 - rgb.g) * amount,
-    rgb.b + (255 - rgb.b) * amount,
-  )
+  return rgbToHex(rgb.r + (255 - rgb.r) * amount, rgb.g + (255 - rgb.g) * amount, rgb.b + (255 - rgb.b) * amount)
 }
 
 /**
@@ -86,9 +80,5 @@ export const lighten = (hex: string, amount: number): string => {
 export const darken = (hex: string, amount: number): string => {
   const rgb = hexToRgb(hex)
   if (!rgb) return hex
-  return rgbToHex(
-    rgb.r * (1 - amount),
-    rgb.g * (1 - amount),
-    rgb.b * (1 - amount),
-  )
+  return rgbToHex(rgb.r * (1 - amount), rgb.g * (1 - amount), rgb.b * (1 - amount))
 }

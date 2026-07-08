@@ -8,8 +8,7 @@
  * isEmail('test@example.com'); // true
  * isEmail('invalid-email'); // false
  */
-export const isEmail = (value: string): boolean =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+export const isEmail = (value: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 
 /**
  * Checks if a given string is a valid URL.
@@ -22,8 +21,7 @@ export const isEmail = (value: string): boolean =>
  * isUrl('ftp://files.example.com'); // true
  * isUrl('invalid-url'); // false
  */
-export const isUrl = (value: string): boolean =>
-  /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(value)
+export const isUrl = (value: string): boolean => /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(value)
 
 /**
  * Checks if a given string is a valid phone number (supports various formats).
@@ -60,8 +58,7 @@ export const isHex = (value: string): boolean => /^[A-Fa-f0-9]+$/.test(value)
  * isHexColor('#ff5733'); // true
  * isHexColor('rgb(255, 87, 51)'); // false
  */
-export const isHexColor = (value: string): boolean =>
-  /^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(value)
+export const isHexColor = (value: string): boolean => /^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(value)
 
 /**
  * Checks if a given string is a valid IPv4 address.
@@ -88,8 +85,7 @@ export const isIPv4 = (value: string): boolean =>
  * isIPv6('2001:0db8:85a3:0000:0000:8a2e:0370:7334'); // true
  * isIPv6('InvalidIPv6'); // false
  */
-export const isIPv6 = (value: string): boolean =>
-  /^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$/i.test(value)
+export const isIPv6 = (value: string): boolean => /^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$/i.test(value)
 
 /**
  * Checks if a given string is a valid MAC address.
@@ -101,8 +97,7 @@ export const isIPv6 = (value: string): boolean =>
  * isMacAddress('00:1A:2B:3C:4D:5E'); // true
  * isMacAddress('invalid-mac'); // false
  */
-export const isMacAddress = (value: string): boolean =>
-  /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(value)
+export const isMacAddress = (value: string): boolean => /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(value)
 
 /**
  * Checks if a given string is a valid UUID (v4 format).
@@ -143,8 +138,7 @@ export const isCreditCard = (value: string): boolean =>
  * isDomain('sub.example.co.uk'); // true
  * isDomain('invalid_domain'); // false
  */
-export const isDomain = (value: string): boolean =>
-  /^(?!:\/\/)([a-zA-Z0-9-_]{1,63}\.)+[a-zA-Z]{2,63}$/.test(value)
+export const isDomain = (value: string): boolean => /^(?!:\/\/)([a-zA-Z0-9-_]{1,63}\.)+[a-zA-Z]{2,63}$/.test(value)
 
 /**
  * Checks if a given string is a valid postal/ZIP code (supports various formats).
@@ -158,8 +152,7 @@ export const isDomain = (value: string): boolean =>
  * isPostalCode('SW1A 1AA'); // true (UK)
  * isPostalCode('invalid_code'); // false
  */
-export const isPostalCode = (value: string): boolean =>
-  /^[A-Za-z0-9\s-]{3,10}$/.test(value)
+export const isPostalCode = (value: string): boolean => /^[A-Za-z0-9\s-]{3,10}$/.test(value)
 
 /**
  * Checks if a given string is a valid date in YYYY-MM-DD format.
@@ -171,8 +164,7 @@ export const isPostalCode = (value: string): boolean =>
  * isISODate('2024-02-12'); // true
  * isISODate('2024-13-01'); // false
  */
-export const isISODate = (value: string): boolean =>
-  /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(value)
+export const isISODate = (value: string): boolean => /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(value)
 
 /**
  * Checks if a given string is a valid Base64-encoded string.
@@ -197,5 +189,4 @@ export const isBase64 = (value: string): boolean =>
  * isSlug('valid-slug-123'); // true
  * isSlug('Invalid Slug!'); // false
  */
-export const isSlug = (value: string): boolean =>
-  /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)
+export const isSlug = (value: string): boolean => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)

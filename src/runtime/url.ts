@@ -29,11 +29,7 @@ export const getQueryParams = (urlString: string): Record<string, string> => {
  * // returns 'https://example.com/?search=new'
  * updateQueryParam('https://example.com/?search=test', 'search', 'new');
  */
-export const updateQueryParam = (
-  urlString: string,
-  key: string,
-  value: string,
-): string => {
+export const updateQueryParam = (urlString: string, key: string, value: string): string => {
   const url = new URL(urlString)
   url.searchParams.set(key, value)
   return url.toString()
@@ -76,14 +72,14 @@ export const buildUrl = (
   const url = new URL(baseUrl)
 
   if (path) {
-    const normalizedPath = path.startsWith('/') ? path : `/${path}`
-    url.pathname = `${url.pathname.replace(/\/$/, '')}${normalizedPath}`
+    const normalizedPath = path.startsWith("/") ? path : `/${path}`
+    url.pathname = `${url.pathname.replace(/\/$/, "")}${normalizedPath}`
   }
 
   if (queryParams)
     Object.entries(queryParams).forEach(([key, value]) => {
       if (value === undefined) return
-      url.searchParams.set(key, value === null ? '' : String(value))
+      url.searchParams.set(key, value === null ? "" : String(value))
     })
 
   return url.toString()

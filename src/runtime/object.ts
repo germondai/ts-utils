@@ -8,10 +8,7 @@
  * @example
  * pick({ a: 1, b: 2, c: 3 }, ['a', 'c']) // { a: 1, c: 3 }
  */
-export const pick = <T extends Record<string, any>, K extends keyof T>(
-  obj: T,
-  keys: K[],
-): Pick<T, K> => {
+export const pick = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {
   const result = {} as Pick<T, K>
   for (const key of keys) {
     if (key in obj) result[key] = obj[key]
@@ -29,10 +26,7 @@ export const pick = <T extends Record<string, any>, K extends keyof T>(
  * @example
  * omit({ a: 1, b: 2, c: 3 }, ['b']) // { a: 1, c: 3 }
  */
-export const omit = <T extends Record<string, any>, K extends keyof T>(
-  obj: T,
-  keys: K[],
-): Omit<T, K> => {
+export const omit = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
   const result = { ...obj }
   for (const key of keys) delete result[key]
   return result as Omit<T, K>
@@ -47,11 +41,9 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
  * @example
  * merge({ a: 1, b: { c: 2 } }, { b: { d: 3 } }) // { a: 1, b: { c: 2, d: 3 } }
  */
-export const merge = <T extends Record<string, any>>(
-  ...objects: Partial<T>[]
-): T => {
+export const merge = <T extends Record<string, any>>(...objects: Partial<T>[]): T => {
   const isPlainObject = (val: unknown): val is Record<string, any> =>
-    val !== null && typeof val === 'object' && val.constructor === Object
+    val !== null && typeof val === "object" && val.constructor === Object
 
   const result = {} as any
   for (const obj of objects) {
@@ -77,15 +69,12 @@ export const merge = <T extends Record<string, any>>(
  * @example
  * flattenObject({ a: { b: 1, c: { d: 2 } } }) // { 'a.b': 1, 'a.c.d': 2 }
  */
-export const flattenObject = (
-  obj: Record<string, any>,
-  prefix: string = '',
-): Record<string, any> => {
+export const flattenObject = (obj: Record<string, any>, prefix: string = ""): Record<string, any> => {
   const result: Record<string, any> = {}
   for (const key of Object.keys(obj)) {
     const fullKey = prefix ? `${prefix}.${key}` : key
     const val = obj[key]
-    if (val !== null && typeof val === 'object' && val.constructor === Object) {
+    if (val !== null && typeof val === "object" && val.constructor === Object) {
       Object.assign(result, flattenObject(val, fullKey))
     } else {
       result[fullKey] = val
@@ -103,12 +92,10 @@ export const flattenObject = (
  * @example
  * unflattenObject({ 'a.b': 1, 'a.c.d': 2 }) // { a: { b: 1, c: { d: 2 } } }
  */
-export const unflattenObject = (
-  obj: Record<string, any>,
-): Record<string, any> => {
+export const unflattenObject = (obj: Record<string, any>): Record<string, any> => {
   const result: Record<string, any> = {}
   for (const key of Object.keys(obj)) {
-    const parts = key.split('.')
+    const parts = key.split(".")
     let current = result
     for (let i = 0; i < parts.length - 1; i++) {
       if (!(parts[i] in current)) current[parts[i]] = {}
@@ -120,7 +107,7 @@ export const unflattenObject = (
 }
 
 const isPlainObj = (val: unknown): val is Record<string, any> =>
-  val !== null && typeof val === 'object' && val.constructor === Object
+  val !== null && typeof val === "object" && val.constructor === Object
 
 const deepEqual = (a: unknown, b: unknown): boolean => {
   if (a === b) return true

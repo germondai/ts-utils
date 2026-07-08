@@ -6,15 +6,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": [
-      "**",
-      "!**/.claude",
-      "!**/.vscode",
-      "!**/node_modules",
-      "!**/dist",
-      "!**/coverage",
-      "!**/bun.lock"
-    ]
+    "includes": ["**", "!**/.claude", "!**/.vscode", "!**/node_modules", "!**/dist", "!**/coverage", "!**/bun.lock"]
   },
   "formatter": {
     "indentStyle": "space",

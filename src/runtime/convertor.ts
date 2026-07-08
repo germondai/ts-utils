@@ -4,10 +4,10 @@
  */
 export const splitWords = (input: string): string[] =>
   input
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
     .toLowerCase()
-    .split(/[\s_\-]+/)
+    .split(/[\s_-]+/)
     .filter(Boolean)
 
 /**
@@ -19,11 +19,7 @@ export const splitWords = (input: string): string[] =>
 export const toCamelCase = (input: string): string => {
   const words = splitWords(input)
 
-  return words
-    .map((word, index) =>
-      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1),
-    )
-    .join('')
+  return words.map((word, index) => (index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1))).join("")
 }
 
 /**
@@ -35,7 +31,7 @@ export const toCamelCase = (input: string): string => {
 export const toPascalCase = (input: string): string =>
   splitWords(input)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('')
+    .join("")
 
 /**
  * Converts a string to snake_case.
@@ -43,8 +39,7 @@ export const toPascalCase = (input: string): string =>
  * @param input The input string.
  * @returns The snake_case version of the input.
  */
-export const toSnakeCase = (input: string): string =>
-  splitWords(input).join('_')
+export const toSnakeCase = (input: string): string => splitWords(input).join("_")
 
 /**
  * Converts a string to kebab-case.
@@ -52,8 +47,7 @@ export const toSnakeCase = (input: string): string =>
  * @param input The input string.
  * @returns The kebab-case version of the input.
  */
-export const toKebabCase = (input: string): string =>
-  splitWords(input).join('-')
+export const toKebabCase = (input: string): string => splitWords(input).join("-")
 
 /**
  * Converts a string to title case.
@@ -68,7 +62,7 @@ export const toTitleCase = (input: string): string =>
     .split(/\s+/)
     .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+    .join(" ")
 
 /**
  * Converts a string to sentence case.
@@ -89,8 +83,7 @@ export const toSentenceCase = (input: string): string => {
  * @param input The input string.
  * @returns The constant-cased string.
  */
-export const toConstantCase = (input: string): string =>
-  toSnakeCase(input).toUpperCase()
+export const toConstantCase = (input: string): string => toSnakeCase(input).toUpperCase()
 
 /**
  * Toggles the case of each character in the string.
@@ -101,11 +94,9 @@ export const toConstantCase = (input: string): string =>
  */
 export const toggleCase = (input: string): string =>
   input
-    .split('')
-    .map((char) =>
-      char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase(),
-    )
-    .join('')
+    .split("")
+    .map((char) => (char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()))
+    .join("")
 
 /**
  * Capitalizes the first character of a string and lowercases the remainder.
@@ -114,9 +105,7 @@ export const toggleCase = (input: string): string =>
  * @returns The capitalized string.
  */
 export const capitalize = (str: string): string =>
-  str.length > 0
-    ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-    : str
+  str.length > 0 ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str
 
 /**
  * Truncates a string to a maximum length.
@@ -129,15 +118,9 @@ export const capitalize = (str: string): string =>
  * @param ellipsis - Whether to append "..." if truncated (default is false).
  * @returns The truncated string.
  */
-export const truncate = (
-  text: string,
-  maxLength: number,
-  ellipsis: boolean = false,
-): string => {
+export const truncate = (text: string, maxLength: number, ellipsis: boolean = false): string => {
   if (text.length <= maxLength) return text
-  return ellipsis
-    ? text.slice(0, maxLength - 3) + '...'
-    : text.slice(0, maxLength)
+  return ellipsis ? text.slice(0, maxLength - 3) + "..." : text.slice(0, maxLength)
 }
 
 /**
@@ -154,15 +137,15 @@ export const truncate = (
 export const slugify = (title: string, length: number = 64): string =>
   title
     .toString()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '')
-    .replace(/--+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '')
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "")
     .slice(0, length)
 
 /**
@@ -173,10 +156,10 @@ export const slugify = (title: string, length: number = 64): string =>
  */
 export const stripTags = (html: string): string =>
   html
-    .replace(/<\s*br\s*\/?\s*>/gi, ' ')
-    .replace(/<\/?p\b[^>]*>/gi, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\s+/g, ' ')
+    .replace(/<\s*br\s*\/?\s*>/gi, " ")
+    .replace(/<\/?p\b[^>]*>/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
     .trim()
 
 /**
@@ -188,11 +171,11 @@ export const stripTags = (html: string): string =>
  */
 export const escapeHTML = (str: string): string => {
   const escapeMap: { [key: string]: string } = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
   }
 
   return str.replace(/[&<>"']/g, (char) => escapeMap[char] || char)
@@ -207,36 +190,33 @@ export const escapeHTML = (str: string): string => {
  */
 export const unescapeHTML = (str: string): string => {
   const unescapeMap: { [key: string]: string } = {
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#039;': "'",
-    '&nbsp;': '\u00A0',
-    '&copy;': '©',
-    '&reg;': '®',
-    '&euro;': '€',
-    '&hellip;': '…',
-    '&ndash;': '–',
-    '&mdash;': '—',
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#039;": "'",
+    "&nbsp;": "\u00A0",
+    "&copy;": "©",
+    "&reg;": "®",
+    "&euro;": "€",
+    "&hellip;": "…",
+    "&ndash;": "–",
+    "&mdash;": "—",
   }
 
-  return str.replace(
-    /&(?:#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z][a-zA-Z0-9]+);/g,
-    (entity) => {
-      if (entity.startsWith('&#x')) {
-        const codePoint = Number.parseInt(entity.slice(3, -1), 16)
+  return str.replace(/&(?:#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z][a-zA-Z0-9]+);/g, (entity) => {
+    if (entity.startsWith("&#x")) {
+      const codePoint = Number.parseInt(entity.slice(3, -1), 16)
 
-        return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
-      }
+      return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
+    }
 
-      if (entity.startsWith('&#')) {
-        const codePoint = Number.parseInt(entity.slice(2, -1), 10)
+    if (entity.startsWith("&#")) {
+      const codePoint = Number.parseInt(entity.slice(2, -1), 10)
 
-        return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
-      }
+      return Number.isNaN(codePoint) ? entity : String.fromCodePoint(codePoint)
+    }
 
-      return unescapeMap[entity] || entity
-    },
-  )
+    return unescapeMap[entity] || entity
+  })
 }

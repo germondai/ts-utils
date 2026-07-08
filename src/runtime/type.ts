@@ -7,12 +7,8 @@
  * @param value - The value to check.
  * @returns True if the value is primitive, false otherwise.
  */
-export const isPrimitive = (
-  value: unknown,
-): value is string | number | boolean | bigint | symbol | null | undefined =>
-  value === null ||
-  value === undefined ||
-  (typeof value !== 'object' && typeof value !== 'function')
+export const isPrimitive = (value: unknown): value is string | number | boolean | bigint | symbol | null | undefined =>
+  value === null || value === undefined || (typeof value !== "object" && typeof value !== "function")
 
 /**
  * Determines whether a value is a plain object.
@@ -23,7 +19,7 @@ export const isPrimitive = (
  * @returns True if the value is a plain object, false otherwise.
  */
 export const isObject = (value: unknown): value is Record<string, unknown> =>
-  value !== null && typeof value === 'object' && value.constructor === Object
+  value !== null && typeof value === "object" && value.constructor === Object
 
 /**
  * Determines whether a value is an array.
@@ -44,7 +40,7 @@ export const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
  */
 export const isEmpty = (value: unknown): boolean => {
   if (value === undefined || value === null) return true
-  if (isArray(value) || typeof value === 'string') return value.length === 0
+  if (isArray(value) || typeof value === "string") return value.length === 0
   if (isObject(value)) return Object.keys(value).length === 0
   return false
 }
@@ -63,7 +59,7 @@ export const isEmpty = (value: unknown): boolean => {
  *
  */
 export const isJSON = (value: string): boolean => {
-  if (typeof value !== 'string') return false
+  if (typeof value !== "string") return false
   try {
     JSON.parse(value)
     return true
@@ -78,8 +74,7 @@ export const isJSON = (value: string): boolean => {
  * @param value - The value to check.
  * @returns True if the value is a function.
  */
-export const isFunction = (value: unknown): value is Function =>
-  typeof value === 'function'
+export const isFunction = (value: unknown): value is Function => typeof value === "function"
 
 /**
  * Checks if a value is a valid Date instance.
@@ -87,8 +82,7 @@ export const isFunction = (value: unknown): value is Function =>
  * @param value - The value to check.
  * @returns True if the value is a valid Date.
  */
-export const isDate = (value: unknown): value is Date =>
-  value instanceof Date && !isNaN(value.getTime())
+export const isDate = (value: unknown): value is Date => value instanceof Date && !isNaN(value.getTime())
 
 /**
  * Checks if a value is a number (and not NaN).
@@ -96,8 +90,7 @@ export const isDate = (value: unknown): value is Date =>
  * @param value - The value to check.
  * @returns True if the value is a finite number.
  */
-export const isNumber = (value: unknown): value is number =>
-  typeof value === 'number' && !isNaN(value)
+export const isNumber = (value: unknown): value is number => typeof value === "number" && !isNaN(value)
 
 /**
  * Checks if a value is a string.
@@ -105,8 +98,7 @@ export const isNumber = (value: unknown): value is number =>
  * @param value - The value to check.
  * @returns True if the value is a string.
  */
-export const isString = (value: unknown): value is string =>
-  typeof value === 'string'
+export const isString = (value: unknown): value is string => typeof value === "string"
 
 /**
  * Checks if a value is a boolean.
@@ -114,8 +106,7 @@ export const isString = (value: unknown): value is string =>
  * @param value - The value to check.
  * @returns True if the value is a boolean.
  */
-export const isBoolean = (value: unknown): value is boolean =>
-  typeof value === 'boolean'
+export const isBoolean = (value: unknown): value is boolean => typeof value === "boolean"
 
 /**
  * Checks if a value is null or undefined.
@@ -123,8 +114,7 @@ export const isBoolean = (value: unknown): value is boolean =>
  * @param value - The value to check.
  * @returns True if the value is null or undefined.
  */
-export const isNil = (value: unknown): value is null | undefined =>
-  value === null || value === undefined
+export const isNil = (value: unknown): value is null | undefined => value === null || value === undefined
 
 /**
  * Checks if a value is a RegExp instance.
@@ -132,5 +122,4 @@ export const isNil = (value: unknown): value is null | undefined =>
  * @param value - The value to check.
  * @returns True if the value is a RegExp.
  */
-export const isRegExp = (value: unknown): value is RegExp =>
-  value instanceof RegExp
+export const isRegExp = (value: unknown): value is RegExp => value instanceof RegExp

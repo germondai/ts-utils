@@ -1,4 +1,4 @@
-import { SUPPORTED_DISPLAYABLE_MEDIA_TYPES } from './constants'
+import { SUPPORTED_DISPLAYABLE_MEDIA_TYPES } from "./constants"
 
 /**
  * Checks if a given MIME type is supported as displayable media.
@@ -10,7 +10,7 @@ import { SUPPORTED_DISPLAYABLE_MEDIA_TYPES } from './constants'
  * @returns True if the MIME type is supported, false otherwise.
  */
 export const isSupportedDisplayableMedia = (
-  mime: File['type'],
+  mime: File["type"],
   type: { image?: boolean; video?: boolean } = { image: true, video: true },
 ) =>
   (type.image && SUPPORTED_DISPLAYABLE_MEDIA_TYPES.images.includes(mime)) ||

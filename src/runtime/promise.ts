@@ -4,8 +4,7 @@
  * @param ms - The number of milliseconds to wait.
  * @returns A promise that resolves after the delay.
  */
-export const sleep = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms))
+export const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms))
 
 /**
  * Retries a function up to a specified number of times with optional exponential backoff.
@@ -33,7 +32,7 @@ export const retry = async <T>(
     } catch (error) {
       lastError = error
       if (attempt < retries) {
-        const waitTime = backoff ? delay * Math.pow(2, attempt) : delay
+        const waitTime = backoff ? delay * 2 ** attempt : delay
         await sleep(waitTime)
       }
     }
@@ -53,17 +52,8 @@ export const retry = async <T>(
  * @example
  * const data = await timeout(fetch('/api/data'), 5000, 'Request timed out')
  */
-export const timeout = <T>(
-  promise: Promise<T>,
-  ms: number,
-  message?: string,
-): Promise<T> =>
+export const timeout = <T>(promise: Promise<T>, ms: number, message?: string): Promise<T> =>
   Promise.race([
     promise,
-    new Promise<never>((_, reject) =>
-      setTimeout(
-        () => reject(new Error(message ?? `Timed out after ${ms}ms`)),
-        ms,
-      ),
-    ),
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error(message ?? `Timed out after ${ms}ms`)), ms)),
   ])

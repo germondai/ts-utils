@@ -7,8 +7,7 @@
  * @param m - The upper bound (default is 0).
  * @returns A random integer between n and m.
  */
-export const rand = (n: number, m: number = 0): number =>
-  Math.floor(Math.random() * (m - n + 1)) + n
+export const rand = (n: number, m: number = 0): number => Math.floor(Math.random() * (m - n + 1)) + n
 
 /**
  * Calculates the percentage of a number relative to a maximum number.
@@ -18,11 +17,7 @@ export const rand = (n: number, m: number = 0): number =>
  * @param decimalPlaces - Number of decimal places to round to (default: 2).
  * @returns The calculated percentage, or 0 if maxValue is 0.
  */
-export const percentage = (
-  value: number,
-  maxValue: number,
-  decimalPlaces: number = 2,
-): number => {
+export const percentage = (value: number, maxValue: number, decimalPlaces: number = 2): number => {
   if (maxValue === 0) return 0
   const percent = (value / maxValue) * 100
   return Number(percent.toFixed(decimalPlaces))
@@ -36,8 +31,7 @@ export const percentage = (
  * @param max - The maximum value.
  * @returns The clamped value.
  */
-export const clamp = (num: number, min: number, max: number): number =>
-  Math.min(Math.max(num, min), max)
+export const clamp = (num: number, min: number, max: number): number => Math.min(Math.max(num, min), max)
 
 /**
  * Formats a number with commas for thousands.
@@ -45,8 +39,7 @@ export const clamp = (num: number, min: number, max: number): number =>
  * @param num - The number to format.
  * @returns A string with formatted number (e.g., "1,234,567").
  */
-export const formatNumber = (num: number): string =>
-  num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+export const formatNumber = (num: number): string => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 /**
  * Sums an array of numbers.
@@ -57,8 +50,7 @@ export const formatNumber = (num: number): string =>
  * @example
  * sum([1, 2, 3]) // 6
  */
-export const sum = (numbers: number[]): number =>
-  numbers.reduce((acc, n) => acc + n, 0)
+export const sum = (numbers: number[]): number => numbers.reduce((acc, n) => acc + n, 0)
 
 /**
  * Calculates the average of an array of numbers.
@@ -69,8 +61,7 @@ export const sum = (numbers: number[]): number =>
  * @example
  * average([1, 2, 3, 4]) // 2.5
  */
-export const average = (numbers: number[]): number =>
-  numbers.length === 0 ? 0 : sum(numbers) / numbers.length
+export const average = (numbers: number[]): number => (numbers.length === 0 ? 0 : sum(numbers) / numbers.length)
 
 /**
  * Calculates the median of an array of numbers.
@@ -86,9 +77,7 @@ export const median = (numbers: number[]): number => {
   if (numbers.length === 0) return 0
   const sorted = [...numbers].sort((a, b) => a - b)
   const mid = Math.floor(sorted.length / 2)
-  return sorted.length % 2 !== 0
-    ? sorted[mid]
-    : (sorted[mid - 1] + sorted[mid]) / 2
+  return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
 }
 
 /**
@@ -100,8 +89,7 @@ export const median = (numbers: number[]): number => {
  * @example
  * min([3, 1, 4, 1, 5]) // 1
  */
-export const min = (numbers: number[]): number =>
-  numbers.length === 0 ? Infinity : Math.min(...numbers)
+export const min = (numbers: number[]): number => (numbers.length === 0 ? Infinity : Math.min(...numbers))
 
 /**
  * Returns the maximum value in an array of numbers.
@@ -112,8 +100,7 @@ export const min = (numbers: number[]): number =>
  * @example
  * max([3, 1, 4, 1, 5]) // 5
  */
-export const max = (numbers: number[]): number =>
-  numbers.length === 0 ? -Infinity : Math.max(...numbers)
+export const max = (numbers: number[]): number => (numbers.length === 0 ? -Infinity : Math.max(...numbers))
 
 /**
  * Rounds a number to the specified number of decimal places.
@@ -127,6 +114,6 @@ export const max = (numbers: number[]): number =>
  * round(1.5) // 2
  */
 export const round = (value: number, decimals: number = 0): number => {
-  const factor = Math.pow(10, decimals)
+  const factor = 10 ** decimals
   return Math.round(value * factor) / factor
 }
